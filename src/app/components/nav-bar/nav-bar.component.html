@@ -1,1 +1,17 @@
-<p>nav-bar works!</p>
+<mat-toolbar color="primary">
+    <span>Employee Management</span>
+    <span class="spacer"></span>
+    
+    <!-- Menu for logged-in users -->
+    <ng-container *ngIf="isLoggedIn; else loggedOut">
+      <button mat-button routerLink="/employees">Employees</button>
+      <button mat-button routerLink="/employees/add">Add Employee</button>
+      <button mat-button (click)="logout()">Logout</button>
+    </ng-container>
+    
+    <!-- Menu for logged-out users -->
+    <ng-template #loggedOut>
+      <button mat-button routerLink="/login">Login</button>
+      <button mat-button routerLink="/signup">Signup</button>
+    </ng-template>
+  </mat-toolbar>
