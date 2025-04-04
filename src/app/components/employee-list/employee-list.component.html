@@ -1,1 +1,101 @@
-<p>employee-list works!</p>
+<div class="employee-list-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Employee Directory</mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <!-- Search Form -->
+        <form [formGroup]="searchForm" (ngSubmit)="searchEmployees()" class="search-form">
+          <mat-form-field appearance="outline">
+            <mat-label>Department</mat-label>
+            <mat-select formControlName="department">
+              <mat-option value="">All Departments</mat-option>
+              <mat-option value="Engineering">Engineering</mat-option>
+              <mat-option value="Marketing">Marketing</mat-option>
+              <mat-option value="Finance">Finance</mat-option>
+              <mat-option value="HR">HR</mat-option>
+              <mat-option value="Operations">Operations</mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Designation</mat-label>
+            <mat-select formControlName="designation">
+              <mat-option value="">All Designations</mat-option>
+              <mat-option value="Manager">Manager</mat-option>
+              <mat-option value="Developer">Developer</mat-option>
+              <mat-option value="Designer">Designer</mat-option>
+              <mat-option value="Analyst">Analyst</mat-option>
+              <mat-option value="Director">Director</mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <div class="search-buttons">
+            <button mat-raised-button color="primary" type="submit">Search</button>
+            <button mat-button type="button" (click)="resetSearch()">Reset</button>
+          </div>
+        </form>
+  
+        <!-- Employee Table -->
+        <div class="mat-elevation-z8 table-container">
+          <table mat-table [dataSource]="dataSource" matSort>
+            <!-- Image Column -->
+            <ng-container matColumnDef="photo">
+              <th mat-header-cell *matHeaderCellDef> Photo </th>
+              <td mat-cell *matCellDef="let employee"> 
+                <img [src]="employee.employee_photo || 'assets/placeholder.png'" class="employee-thumbnail" alt="Employee photo"> 
+              </td>
+            </ng-container>
+  
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+              <td mat-cell *matCellDef="let employee"> {{employee.first_name}} {{employee.last_name}} </td>
+            </ng-container>
+  
+            <!-- Email Column -->
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+              <td mat-cell *matCellDef="let employee"> {{employee.email}} </td>
+            </ng-container>
+  
+            <!-- Designation Column -->
+            <ng-container matColumnDef="designation">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Designation </th>
+              <td mat-cell *matCellDef="let employee"> {{employee.designation}} </td>
+            </ng-container>
+  
+            <!-- Department Column -->
+            <ng-container matColumnDef="department">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+              <td mat-cell *matCellDef="let employee"> {{employee.department}} </td>
+            </ng-container>
+  
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> Actions </th>
+              <td mat-cell *matCellDef="let employee"> 
+                <button mat-icon-button color="primary" [routerLink]="['/employees', employee.id]">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteEmployee(employee.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+  
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+  
+          <!-- No data message -->
+          <div *ngIf="dataSource.data.length === 0" class="no-data">
+            No employees found
+          </div>
+  
+          <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>

@@ -1,0 +1,47 @@
+.employee-add-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .form-row mat-form-field {
+    flex: 1;
+  }
+  
+  .full-width {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .photo-upload {
+    margin-bottom: 20px;
+  }
+  
+  .upload-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 5px;
+  }
+  
+  .file-name {
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .error-message {
+    color: red;
+    margin-top: 15px;
+  }
+  
+  @media (max-width: 600px) {
+    .form-row {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
