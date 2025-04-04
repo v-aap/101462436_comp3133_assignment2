@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { User, AuthResponse } from '../models/user';
+import { User } from '../models/user';
 import { LOGIN, SIGNUP } from '../graphql/graphql.operations';
 
 @Injectable({
@@ -15,10 +15,12 @@ export class AuthService {
   constructor(private apollo: Apollo) { }
 
   login(email: string, password: string): Observable<User> {
-    return this.apollo.query<any>({
+    return this.apollo.watchQuery<any>({
       query: LOGIN,
       variables: { email, password }
-    }).pipe(
+    })
+    .valueChanges
+    .pipe(
       map(result => {
         const user = result.data.login;
         this.setSession(user);
@@ -51,6 +53,8 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
     localStorage.removeItem(this.USER_KEY);
+    // Clear Apollo cache on logout
+    this.apollo.client.resetStore();
   }
 
   isLoggedIn(): boolean {

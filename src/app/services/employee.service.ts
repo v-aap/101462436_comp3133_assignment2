@@ -20,10 +20,12 @@ export class EmployeeService {
   constructor(private apollo: Apollo) { }
 
   getAllEmployees(): Observable<Employee[]> {
-    return this.apollo.query<any>({
+    return this.apollo.watchQuery<any>({
       query: GET_ALL_EMPLOYEES,
       fetchPolicy: 'network-only' // Don't cache this query
-    }).pipe(
+    })
+    .valueChanges
+    .pipe(
       map(result => result.data.getAllEmployees),
       catchError(error => {
         console.error('Get all employees error:', error);
@@ -33,11 +35,13 @@ export class EmployeeService {
   }
 
   getEmployeeById(id: string): Observable<Employee> {
-    return this.apollo.query<any>({
+    return this.apollo.watchQuery<any>({
       query: GET_EMPLOYEE_BY_ID,
       variables: { id },
       fetchPolicy: 'network-only'
-    }).pipe(
+    })
+    .valueChanges
+    .pipe(
       map(result => result.data.getEmployeeById),
       catchError(error => {
         console.error('Get employee by ID error:', error);
@@ -47,11 +51,13 @@ export class EmployeeService {
   }
 
   searchEmployees(criteria: { designation?: string, department?: string }): Observable<Employee[]> {
-    return this.apollo.query<any>({
+    return this.apollo.watchQuery<any>({
       query: SEARCH_EMPLOYEES,
       variables: criteria,
       fetchPolicy: 'network-only'
-    }).pipe(
+    })
+    .valueChanges
+    .pipe(
       map(result => result.data.searchEmployees),
       catchError(error => {
         console.error('Search employees error:', error);
