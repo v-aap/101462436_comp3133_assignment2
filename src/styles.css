@@ -2,7 +2,6 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-/* Add to src/styles.css */
 .employee-thumbnail {
     width: 60px;
     height: 60px;
