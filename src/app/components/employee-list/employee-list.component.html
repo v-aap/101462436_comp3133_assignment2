@@ -44,7 +44,10 @@
             <ng-container matColumnDef="photo">
               <th mat-header-cell *matHeaderCellDef> Photo </th>
               <td mat-cell *matCellDef="let employee"> 
-                <img [src]="getPhotoUrl(employee.employee_photo)" class="employee-thumbnail" alt="Employee photo">
+                <!-- In your component templates -->
+                  <img [src]="getPhotoUrl(employee?.employee_photo)" 
+                  (error)="handleImageError($event)" 
+                  alt="Employee photo">
               </td>
             </ng-container>
   

@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://your-deployed-backend-url.com' // Update this when deploying
+    apiUrl: 'https://101462436-comp-3133-101462436-assignment1.vercel.app/' 
   };

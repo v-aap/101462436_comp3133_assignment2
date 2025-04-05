@@ -64,6 +64,12 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
+  handleImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    console.log('Image failed to load:', img.src);
+    img.src = 'assets/placeholder.png';
+  }
+  
   getPhotoUrl(photoPath: string | undefined): string {
     return this.imageService.getEmployeePhotoUrl(photoPath);
   }

@@ -20,6 +20,10 @@ export class ImageService {
       return this.placeholderPath;
     }
 
+    // If it's a base64 image, return it directly
+    if (photoPath.startsWith('data:image')) {
+        return photoPath;
+    }
     // Check if it's already a full URL or base64 data
     if (photoPath.startsWith('http') || photoPath.startsWith('data:image')) {
       return photoPath;
@@ -36,6 +40,7 @@ export class ImageService {
     }
     
     // Otherwise return the path as is, assuming it's relative to assets
+    console.log('Falling back to placeholder for:', photoPath);
     return photoPath;
   }
 }

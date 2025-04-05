@@ -9,7 +9,10 @@
           <!-- Employee Photo -->
           <div class="employee-photo-section">
             <div class="employee-photo">
-              <img [src]="getPhotoUrl(employee?.employee_photo)" alt="Employee photo">
+              <!-- In your component templates -->
+              <img [src]="getPhotoUrl(employee?.employee_photo)" 
+              (error)="handleImageError($event)" 
+              alt="Employee photo">
             </div>
             
             <div *ngIf="isEditing" class="photo-upload">

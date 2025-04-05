@@ -87,6 +87,12 @@ export class EmployeeDetailsComponent implements OnInit {
     return this.imageService.getEmployeePhotoUrl(photoPath);
   }
 
+  handleImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    console.log('Image failed to load:', img.src);
+    img.src = 'assets/placeholder.png';
+  }
+  
   loadEmployeeDetails(): void {
     this.employeeService.getEmployeeById(this.employeeId).subscribe({
       next: (employee) => {
