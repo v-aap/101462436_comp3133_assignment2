@@ -9,7 +9,7 @@
           <!-- Employee Photo -->
           <div class="employee-photo-section">
             <div class="employee-photo">
-              <img [src]="employee?.employee_photo || 'assets/placeholder.png'" alt="Employee photo">
+              <img [src]="getPhotoUrl(employee?.employee_photo)" alt="Employee photo">
             </div>
             
             <div *ngIf="isEditing" class="photo-upload">

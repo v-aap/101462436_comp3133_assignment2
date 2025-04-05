@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgIf } from '@angular/common';
 import { Employee } from '../../models/employee';
 import { EmployeeService } from '../../services/employee.service';
+import { ImageService } from '../../services/image.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -45,7 +46,8 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
   constructor(
     private employeeService: EmployeeService,
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private imageService: ImageService
   ) {
     this.searchForm = this.formBuilder.group({
       department: [''],
@@ -60,6 +62,10 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  getPhotoUrl(photoPath: string | undefined): string {
+    return this.imageService.getEmployeePhotoUrl(photoPath);
   }
 
   loadEmployees(): void {

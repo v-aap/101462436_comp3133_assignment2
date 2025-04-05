@@ -67,17 +67,37 @@ export class EmployeeAddComponent implements OnInit {
       this.selectedFile = input.files[0];
       this.selectedFileName = this.selectedFile.name;
       
+      // Check if file is an image
+      if (!this.selectedFile.type.startsWith('image/')) {
+        this.snackBar.open('Please select an image file', 'Close', {
+          duration: 3000
+        });
+        return;
+      }
+      
+      // Size check (optional, adjust max size as needed)
+      const maxSize = 5 * 1024 * 1024; // 5MB
+      if (this.selectedFile.size > maxSize) {
+        this.snackBar.open('File is too large. Maximum size is 5MB', 'Close', {
+          duration: 3000
+        });
+        return;
+      }
+      
       // Read file as data URL for preview or base64 encoding
       const reader = new FileReader();
       reader.onload = () => {
         // Store base64 string in form
+        const base64String = reader.result as string;
         this.employeeForm.patchValue({
-          employee_photo: reader.result as string
+          employee_photo: base64String
         });
+        
       };
       reader.readAsDataURL(this.selectedFile);
     }
   }
+
 
   onSubmit(): void {
     if (this.employeeForm.invalid) {
