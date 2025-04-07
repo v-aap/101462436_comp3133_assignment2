@@ -11,11 +11,7 @@
             <mat-label>Department</mat-label>
             <mat-select formControlName="department">
               <mat-option value="">All Departments</mat-option>
-              <mat-option value="Engineering">Engineering</mat-option>
-              <mat-option value="Marketing">Marketing</mat-option>
-              <mat-option value="Finance">Finance</mat-option>
-              <mat-option value="HR">HR</mat-option>
-              <mat-option value="Operations">Operations</mat-option>
+              <mat-option *ngFor="let dept of departments" [value]="dept">{{dept}}</mat-option>
             </mat-select>
           </mat-form-field>
   
@@ -23,14 +19,10 @@
             <mat-label>Designation</mat-label>
             <mat-select formControlName="designation">
               <mat-option value="">All Designations</mat-option>
-              <mat-option value="Manager">Manager</mat-option>
-              <mat-option value="Developer">Developer</mat-option>
-              <mat-option value="Designer">Designer</mat-option>
-              <mat-option value="Analyst">Analyst</mat-option>
-              <mat-option value="Director">Director</mat-option>
+              <mat-option *ngFor="let desig of designations" [value]="desig">{{desig}}</mat-option>
             </mat-select>
           </mat-form-field>
-  
+    
           <div class="search-buttons">
             <button mat-raised-button color="primary" type="submit">Search</button>
             <button mat-button type="button" (click)="resetSearch()">Reset</button>

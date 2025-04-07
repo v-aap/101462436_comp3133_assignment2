@@ -39,6 +39,8 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['photo', 'name', 'email', 'designation', 'department', 'actions'];
   dataSource = new MatTableDataSource<Employee>([]);
   searchForm: FormGroup;
+  departments: string[] = [];
+  designations: string[] = [];
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -72,6 +74,12 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
   
   getPhotoUrl(photoPath: string | undefined): string {
     return this.imageService.getEmployeePhotoUrl(photoPath);
+  }
+
+  extractUniqueValues(employees: Employee[]): void {
+    // Extract unique departments and designations
+    this.departments = [...new Set(employees.map(emp => emp.department).filter(Boolean))];
+    this.designations = [...new Set(employees.map(emp => emp.designation).filter(Boolean))];
   }
 
   loadEmployees(): void {
