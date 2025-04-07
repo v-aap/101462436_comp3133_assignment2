@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { NgIf } from '@angular/common';
+import { NgIf, NgFor } from '@angular/common';
 import { Employee } from '../../models/employee';
 import { EmployeeService } from '../../services/employee.service';
 import { ImageService } from '../../services/image.service';
@@ -30,7 +30,8 @@ import { ImageService } from '../../services/image.service';
     MatSelectModule,
     MatButtonModule,
     MatIconModule,
-    NgIf
+    NgIf,
+    NgFor
   ],
   templateUrl: './employee-list.component.html',
   styleUrls: ['./employee-list.component.css']
@@ -86,6 +87,7 @@ export class EmployeeListComponent implements OnInit, AfterViewInit {
     this.employeeService.getAllEmployees().subscribe({
       next: (employees) => {
         this.dataSource.data = employees;
+        this.extractUniqueValues(employees); 
       },
       error: (error) => {
         this.snackBar.open('Error loading employees: ' + error.message, 'Close', {
