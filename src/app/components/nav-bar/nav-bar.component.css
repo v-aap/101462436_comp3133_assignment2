@@ -5,3 +5,31 @@
   mat-toolbar {
     margin-bottom: 20px;
   }
+
+.mat-toolbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  position: relative;
+}
+
+.nav-button {
+  margin-left: 8px;
+  border-radius: 4px;
+}
+
+.brand-logo {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-right: 16px;
+}
